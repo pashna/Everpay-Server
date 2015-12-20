@@ -1033,6 +1033,8 @@ def edit_debts(request):
                     debt.is_deleted = 1
                     debt.save()
 
+                    make_bills_details_not_actual()
+
                     news = save_history_edit_debts(user, debt)
                     send_message_edit_debts(news)
                     history.append(news)
@@ -1041,6 +1043,8 @@ def edit_debts(request):
                 if debt.is_deleted:
                     debt.is_deleted = 0
                     debt.save()
+
+                    make_bills_details_actual(debt)
 
                     news = save_history_edit_debts(user, debt)
                     send_message_edit_debts(news)

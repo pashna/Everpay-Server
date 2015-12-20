@@ -127,6 +127,7 @@ class BillsDetails(models.Model):
     is_actual = models.BooleanField(default=1)
     # удален
     is_deleted = models.BooleanField(default=0)
+    creation_datetime = UnixTimestampField(auto_created=True)
 
 
 class Debts(models.Model):

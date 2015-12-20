@@ -165,3 +165,23 @@ def generate_user_debts(group):
 def generate_access_token(length=LENGTH_OF_ACCESS_TOKEN_DEFAULT,
                           chars=string.ascii_letters + string.digits + string.punctuation):
     return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
+
+
+def make_bills_details_not_actual(debt):
+    bills_details = BillsDetails.objects.filter(groups_id=debt.groups_id, users_id=debt.users_id_who.pk, is_actual=1,
+                                                is_deleted=0)
+    for bills_detail in bills_details:
+        bills_detail.is_actual = 0
+        bills_detail.save()
+
+
+def make_bills_details_actual(debt):
+    bills_details = BillsDetails.objects.filter(groups_id=debt.groups_id, users_id=debt.users_id_who.pk, is_actual=0,
+                                                is_deleted=0).order_by('-bills_id__creation_datetime')
+    sum = 0
+    debt_sum = debt.sum
+    for bills_detail in bills_details:
+        if sum != debt_sum:
+            sum += bills_detail.debts_sum - bills_detail.investment_sum
+            bills_detail.is_actual = 1
+            bills_detail.save()
