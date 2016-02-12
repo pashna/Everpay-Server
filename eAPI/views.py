@@ -12,6 +12,11 @@ from gcm.forms import *
 LENGTH_OF_ACCESS_TOKEN_MIN = LENGTH_OF_ACCESS_TOKEN_DEFAULT
 LENGTH_OF_ACCESS_TOKEN_MAX = 100
 
+# REQUEST_METHOD_GET = 'GET'
+# REQUEST_METHOD_ADD = 'POST'
+# REQUEST_METHOD_EDIT = 'PUT'
+# REQUEST_METHOD_REMOVE = 'DELETE'
+
 
 def login(request):
     if request.method == 'POST':
@@ -1033,7 +1038,7 @@ def edit_debts(request):
                     debt.is_deleted = 1
                     debt.save()
 
-                    make_bills_details_not_actual()
+                    # make_bills_details_not_actual()
 
                     news = save_history_edit_debts(user, debt)
                     send_message_edit_debts(news)
@@ -1044,7 +1049,7 @@ def edit_debts(request):
                     debt.is_deleted = 0
                     debt.save()
 
-                    make_bills_details_actual(debt)
+                    # make_bills_details_actual(debt)
 
                     news = save_history_edit_debts(user, debt)
                     send_message_edit_debts(news)

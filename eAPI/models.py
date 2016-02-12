@@ -124,10 +124,10 @@ class BillsDetails(models.Model):
     debt_sum = models.IntegerField(default=0)
     investment_sum = models.IntegerField(default=0)
     # погашен = не нужно брать для детализации долгов
-    is_actual = models.BooleanField(default=1)
+    # is_actual = models.BooleanField(default=1)
     # удален
     is_deleted = models.BooleanField(default=0)
-    creation_datetime = UnixTimestampField(auto_created=True)
+    # creation_datetime = UnixTimestampField(auto_created=True)
 
 
 class Debts(models.Model):
